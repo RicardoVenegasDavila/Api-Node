@@ -1,22 +1,27 @@
-const express = require ('express')
+const { request } = require('express');
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
+
+const app = express();
+
+//Directorio publico
+
+app.use(express.static('public'))
+//CORS
+
+app.use(cors());
+
+//Lectura y parseo del body
+
+app.use(express.json());
+
+//Rutas
+
+app.use('/api/auth', require('./routes/auth'));
 
 
-const app = express ();
+app.listen(process.env.PORT, () => {
 
-
-app.get('/', (req, res)=>{
-
-res.json({
-    ok: true,
-    msg: 'todo bien',
-    uid: 12345
 })
-
-})
-
-
-
-app.listen(3000,()=>{
-
-})
-    console.log(`  servidor corriendo por el puerto ${3000} ` )
+console.log(`  servidor corriendo por el puerto ${process.env.PORT} `)
